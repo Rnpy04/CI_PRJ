@@ -9,7 +9,7 @@ def MeanSquaredError(preds: Tensor, actual: Tensor):
     # n = np.prod(preds.shape)   # یا preds.numel() اگر فراهمه؛ بهتر اینکه از Tensor shape استفاده کنی
     # return loss * (1.0 / n)
     
-    # #علی
+    
     size = Tensor(np.array([mse.data.size],dtype=np.float64))
     size = size**-1
     return mse * size

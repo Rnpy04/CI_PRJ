@@ -151,12 +151,7 @@ class Tensor:
                 grad = Tensor(1.0)
             else:
                 raise RuntimeError("grad must be specified for non-0-tensor")
-        # grad = np.ones(loss.shape)
-        # grad_tensor = Tensor(grad, requires_grad=False)
-        if self.grad is None:
-            self.grad = grad .copy()
-        else:
-            self.grad.data = self.grad.data + grad.data
+        self.grad.data = self.grad.data + grad.data
 
         for dependency in self.depends_on:
             backward_grad = dependency.grad_fn(grad.data)

@@ -13,11 +13,6 @@ class SGD(Optimizer):
         # pass
         
         for layer in self.layers:
-        #ali
-            # layer.weight = layer.weight - self.learning_rate * layer.weight.grad
-            # if layer.need_bias:
-            #     layer.bias = layer.bias - self.learning_rate * layer.bias.grad
-        #gpt
             layer.weight.data -= self.learning_rate * layer.weight.grad.data
             if layer.need_bias:
                 layer.bias.data -= self.learning_rate * layer.bias.grad.data
