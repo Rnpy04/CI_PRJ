@@ -1,1 +1,1 @@
-a project for CI course
+A project for CI course
