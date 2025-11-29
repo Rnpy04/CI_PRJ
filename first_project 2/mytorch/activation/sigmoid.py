@@ -13,3 +13,18 @@ def sigmoid(x: Tensor) -> Tensor:
     z = (z + ones)** -1
     
     return z
+
+def sigmoid_no_overflow(x: Tensor) -> Tensor:
+    """
+    Numerically stable sigmoid using a vectorized approach.
+    Gradient is computed automatically via chain rule.
+    """
+    # Convert to numpy array for masks
+    data = x.data
+    # vectorized computation
+    out_data = np.where(
+        data >= 0,
+        1 / (1 + np.exp(-data)),      # x >= 0
+        np.exp(data) / (1 + np.exp(data))  # x < 0
+    )
+    return Tensor(out_data, requires_grad=True)

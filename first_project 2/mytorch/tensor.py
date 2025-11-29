@@ -184,6 +184,8 @@ def _tensor_log(t: Tensor,base =None) -> Tensor:
     "TODO: tensor log"
     # data = ...
     # req_grad = ...
+    eps = 1e-12  # small number to prevent log(0)
+    safe_data = np.clip(t.data, eps, None)
     if base:
         data = np.log(t.data) / np.log(base)
     else:
@@ -363,6 +365,8 @@ def _mul(t1: Tensor, t2: Tensor) -> Tensor:
 
 def _matmul(t1: Tensor, t2: Tensor) -> Tensor:
     "TODO: implement matrix multiplication"
+    # t1_data = np.nan_to_num(t1.data, nan=0.0, posinf=1e12, neginf=-1e12)
+    # t2_data = np.nan_to_num(t2.data, nan=0.0, posinf=1e12, neginf=-1e12)
     data = t1.data @ t2.data
     requires_grad = t1.requires_grad or t2.requires_grad
 

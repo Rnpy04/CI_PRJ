@@ -4,14 +4,14 @@ from mytorch import Tensor, Dependency
 def relu(x: Tensor) -> Tensor:
     "TODO: implement relu function"
 
-    # use np.maximum
-    data = np.maximum(x.data, 0)#
-    req_grad = x.requires_grad#
+    data = np.maximum(x.data, 0)
+    req_grad = x.requires_grad
 
     if req_grad:
         def grad_fn(grad: np.ndarray):
             # use np.where
-            return grad * (x.data > 0).astype(np.float32)#
+            return grad * np.where(x.data > 0, 1.0, 0.0)
+            return grad * (x.data > 0).astype(np.float32)
 
         depends_on = [Dependency(x, grad_fn)]
     else:

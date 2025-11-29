@@ -18,4 +18,11 @@ def MeanSquaredError(preds: Tensor, actual: Tensor):
     # per_sample = mse.sum(axis=1) / preds.shape[1]   # sum روی outputs، تقسیم بر تعداد خروجی‌ها
     # return per_sample.mean()
     
-    # return ...
+def MeanSquaredError2(preds: Tensor, actual: Tensor):
+    """
+    Mean Squared Error Loss
+    preds, actual: (batch, output_dim) یا هر shape مشابه
+    """
+    diff = preds.data - actual.data
+    mse = np.mean(diff ** 2)  # mean over all elements
+    return Tensor(data=np.array(mse, dtype=np.float32), requires_grad=True)

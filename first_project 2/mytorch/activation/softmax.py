@@ -18,3 +18,16 @@ def softmax(x: Tensor) -> Tensor:
 
     return e_x * (sum**-1)
 
+def softmax_no_overflow(x: Tensor) -> Tensor:
+    """
+    Numerically stable softmax.
+    Assumes x.data shape = (batch, classes)
+    Gradient is computed automatically via chain rule.
+    """
+    # subtract max for numerical stability
+    x_max = np.max(x.data, axis=1, keepdims=True)        # (batch, 1)
+    e_x = np.exp(x.data - x_max)                         # stable exp
+    sum_e = np.sum(e_x, axis=1, keepdims=True)          # (batch, 1)
+    data = e_x / sum_e                                  # softmax output
+
+    return Tensor(data.astype(np.float32), requires_grad=x.requires_grad)
