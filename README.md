@@ -1,1 +1,1 @@
-A neural network project for CI course
+neural network project for CI course
